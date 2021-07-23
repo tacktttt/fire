@@ -1,8 +1,13 @@
 import React from 'react'
+import { ChakraProvider } from '@chakra-ui/react'
 import './App.css'
 
-function App() {
-  return <div className="App">aaa</div>
+const App = () => {
+  return (
+    <ChakraProvider>
+      <div>aaaa</div>
+    </ChakraProvider>
+  )
 }
 
 export default App
