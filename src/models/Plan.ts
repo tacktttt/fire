@@ -131,29 +131,41 @@ export class Plan {
 
   // methods
   calcFireYears(targetAmount: number, baseAmount: number) {
-    const v = targetAmount - baseAmount
-    const tmp1 = new BigNumber(v).div(this.getAnnualReserveFund)
-    const tmp2 = tmp1.times(this.getAnnualInterestRate).plus(1)
-    const rate = new BigNumber(1).plus(this.getAnnualInterestRate)
-    const res = Math.log(tmp2.toNumber()) / Math.log(rate.toNumber())
-    return Math.ceil(res)
+    const res: Array<number> = []
+    let tmp = baseAmount
+    while (tmp <= targetAmount) {
+      const rate = new BigNumber(1).plus(this.annualInterestRate)
+      const added = this.getAnnualReserveFund
+      const changed = new BigNumber(tmp + added).times(rate)
+      tmp = Math.floor(changed.toNumber())
+      res.push(tmp)
+    }
+    return res
   }
 
   calcFireMonths(targetAmount: number, baseAmount: number) {
-    const v = targetAmount - baseAmount
-    const tmp1 = new BigNumber(v).div(this.getMonthlyReserveFund)
-    const tmp2 = tmp1.times(this.getMonthlyInterestRate).plus(1)
-    const rate = new BigNumber(1).plus(this.getMonthlyInterestRate)
-    const res = Math.log(tmp2.toNumber()) / Math.log(rate.toNumber())
-    return Math.ceil(res)
+    const res: Array<number> = []
+    let tmp = baseAmount
+    while (tmp <= targetAmount) {
+      const rate = new BigNumber(1).plus(this.getMonthlyInterestRate)
+      const added = this.getMonthlyReserveFund
+      const changed = new BigNumber(tmp + added).times(rate)
+      tmp = Math.floor(changed.toNumber())
+      res.push(tmp)
+    }
+    return res
   }
 
   calcFireDays(targetAmount: number, baseAmount: number) {
-    const v = targetAmount - baseAmount
-    const tmp1 = new BigNumber(v).div(this.getDailyReserveFund)
-    const tmp2 = tmp1.times(this.getDailyInterestRate).plus(1)
-    const rate = new BigNumber(1).plus(this.getDailyInterestRate)
-    const res = Math.log(tmp2.toNumber()) / Math.log(rate.toNumber())
-    return Math.ceil(res)
+    const res: Array<number> = []
+    let tmp = baseAmount
+    while (tmp <= targetAmount) {
+      const rate = new BigNumber(1).plus(this.getDailyInterestRate)
+      const added = this.getDailyReserveFund
+      const changed = new BigNumber(tmp + added).times(rate)
+      tmp = Math.floor(changed.toNumber())
+      res.push(tmp)
+    }
+    return res
   }
 }

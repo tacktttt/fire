@@ -1,4 +1,5 @@
 import { Plan } from '../Plan'
+import { yearly, monthly, daily } from './Plan.mock'
 
 describe('basic plan', () => {
   const basic = new Plan({
@@ -11,14 +12,26 @@ describe('basic plan', () => {
   })
   test('calc fire years', () => {
     const res = basic.calcFireYears(10000000, 100000)
-    expect(res).toBe(25)
+    expect(res).toStrictEqual(yearly)
   })
   test('calc fire months', () => {
     const res = basic.calcFireMonths(10000000, 100000)
-    expect(res).toBe(293)
+    expect(res).toStrictEqual(monthly)
   })
   test('calc fire days', () => {
     const res = basic.calcFireDays(10000000, 100000)
-    expect(res).toBe(8898)
+    expect(res).toStrictEqual(daily)
+  })
+  test('calc fire years length', () => {
+    const res = basic.calcFireYears(10000000, 100000)
+    expect(res.length).toBe(24)
+  })
+  test('calc fire months length', () => {
+    const res = basic.calcFireMonths(10000000, 100000)
+    expect(res.length).toBe(290)
+  })
+  test('calc fire days length', () => {
+    const res = basic.calcFireDays(10000000, 100000)
+    expect(res.length).toBe(8808)
   })
 })
