@@ -2,9 +2,11 @@ import { Plan } from '../Plan'
 
 describe('basic plan', () => {
   const basic = new Plan({
+    baseAmount: 1000000,
+    targetAmount: 100000000,
     annualLivingCost: 4000000,
     annualInterestRate: '0.04',
-    annualReserveFund: 240000,
+    annualReserveFund: 600000,
     isPublished: true,
     createdAt: '2021-05-20T00:00:00+09:00',
     updatedAt: '2021-05-20T00:00:00+09:00',
