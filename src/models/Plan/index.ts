@@ -1,5 +1,4 @@
 import { BigNumber } from 'bignumber.js'
-import { JstDate } from '../../lib/date'
 
 const months = 12
 const days = 365
@@ -13,7 +12,6 @@ export type IPlan = {
 }
 
 export class Plan {
-  // props
   private baseAmount: number
   private targetAmount: number
   private annualLivingCost: number
@@ -29,6 +27,14 @@ export class Plan {
   }
 
   // getter
+  get getBaseAmount() {
+    return Math.floor(this.baseAmount)
+  }
+
+  get getTargetAmount() {
+    return Math.floor(this.targetAmount)
+  }
+
   get getAnnualLivingCost() {
     return Math.floor(this.annualLivingCost)
   }
@@ -69,6 +75,23 @@ export class Plan {
     return Math.floor(
       new BigNumber(this.annualReserveFund).div(days).toNumber()
     )
+  }
+
+  get numberOfMonth() {
+    const r = new BigNumber(this.getMonthlyInterestRate)
+    const r1 = r.plus(1)
+    let pv = new BigNumber(this.baseAmount)
+    const tv = new BigNumber(this.getMonthlyReserveFund)
+    const fv = new BigNumber(this.targetAmount)
+
+    let n = 0
+    while (pv.toNumber() < fv.toNumber()) {
+      pv = pv.plus(tv)
+      pv = pv.times(r1)
+      console.log(pv.toNumber())
+      n++
+    }
+    return n
   }
 
   // setter
@@ -112,45 +135,5 @@ export class Plan {
   set setDailyReserveFund(dailyReserveFund: number) {
     const annualReserveFund = new BigNumber(dailyReserveFund).times(days)
     this.annualReserveFund = Math.floor(annualReserveFund.toNumber())
-  }
-
-  // methods
-  calcFireYears() {
-    const res: Array<number> = []
-    let tmp = this.baseAmount
-    while (tmp <= this.targetAmount) {
-      const rate = new BigNumber(1).plus(this.annualInterestRate)
-      const added = this.getAnnualReserveFund
-      const changed = new BigNumber(tmp + added).times(rate)
-      tmp = Math.floor(changed.toNumber())
-      res.push(tmp)
-    }
-    return res
-  }
-
-  calcFireMonths() {
-    const res: Array<number> = []
-    let tmp = this.baseAmount
-    while (tmp <= this.targetAmount) {
-      const rate = new BigNumber(1).plus(this.getMonthlyInterestRate)
-      const added = this.getMonthlyReserveFund
-      const changed = new BigNumber(tmp + added).times(rate)
-      tmp = Math.floor(changed.toNumber())
-      res.push(tmp)
-    }
-    return res
-  }
-
-  calcFireDays() {
-    const res: Array<number> = []
-    let tmp = this.baseAmount
-    while (tmp <= this.targetAmount) {
-      const rate = new BigNumber(1).plus(this.getDailyInterestRate)
-      const added = this.getDailyReserveFund
-      const changed = new BigNumber(tmp + added).times(rate)
-      tmp = Math.floor(changed.toNumber())
-      res.push(tmp)
-    }
-    return res
   }
 }
