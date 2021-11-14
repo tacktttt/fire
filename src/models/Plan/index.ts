@@ -1,18 +1,15 @@
 import { BigNumber } from 'bignumber.js'
-import { JstDate } from '../lib/date'
+import { JstDate } from '../../lib/date'
 
 const months = 12
 const days = 365
 
-type IPlan = {
+export type IPlan = {
   baseAmount: number
   targetAmount: number
   annualLivingCost: number
   annualInterestRate: string
   annualReserveFund: number
-  isPublished: boolean
-  createdAt: string
-  updatedAt: string
 }
 
 export class Plan {
@@ -23,22 +20,12 @@ export class Plan {
   private annualInterestRate: string
   private annualReserveFund: number
 
-  // bool
-  private isPublished: boolean
-
-  // timestamp
-  public createdAt: Date
-  public updatedAt: Date
-
   constructor(obj: IPlan) {
     this.baseAmount = Math.floor(obj.baseAmount)
     this.targetAmount = Math.floor(obj.targetAmount)
     this.annualLivingCost = Math.floor(obj.annualLivingCost)
     this.annualInterestRate = obj.annualInterestRate
     this.annualReserveFund = Math.floor(obj.annualReserveFund)
-    this.isPublished = obj.isPublished
-    this.createdAt = JstDate(new Date(obj.createdAt))
-    this.updatedAt = JstDate(new Date(obj.updatedAt))
   }
 
   // getter
@@ -84,10 +71,6 @@ export class Plan {
     )
   }
 
-  get getIsPublished() {
-    return this.isPublished
-  }
-
   // setter
   set setAnnualLivingCost(annualLivingCost: number) {
     this.annualLivingCost = Math.floor(annualLivingCost)
@@ -129,10 +112,6 @@ export class Plan {
   set setDailyReserveFund(dailyReserveFund: number) {
     const annualReserveFund = new BigNumber(dailyReserveFund).times(days)
     this.annualReserveFund = Math.floor(annualReserveFund.toNumber())
-  }
-
-  set setIsPublished(isPublished: boolean) {
-    this.isPublished = isPublished
   }
 
   // methods
