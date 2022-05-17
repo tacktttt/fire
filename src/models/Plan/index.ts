@@ -4,7 +4,7 @@ export type IPlan = {
   baseAmount: number
   monthlyLivingCost: number
   monthlyReserveFund: number
-  monthlyInterestRate: string
+  interestRate: string
 }
 
 export class Plan {
@@ -17,7 +17,7 @@ export class Plan {
     this.baseAmount = obj.baseAmount
     this.monthlyLivingCost = obj.monthlyLivingCost
     this.monthlyReserveFund = obj.monthlyReserveFund
-    this.monthlyInterestRate = obj.monthlyInterestRate
+    this.monthlyInterestRate = toBN(obj.interestRate).div(12).toString()
   }
 
   get targetAmount(): number {
@@ -33,7 +33,7 @@ export class Plan {
     const m = fvr.div(pmt).plus(1).toNumber()
     const a = toBN(this.monthlyInterestRate).plus(1).toNumber()
 
-    const n = Math.log(m) / Math.log(a)
+    const n = Math.floor(Math.log(m) / Math.log(a))
 
     return n
   }
