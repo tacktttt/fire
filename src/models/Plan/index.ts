@@ -1,4 +1,4 @@
-import { toBN } from '../../lib/bigNumber'
+import { toBN } from '../../pkg/bigNumber'
 
 export type IPlan = {
   baseAmount: number
