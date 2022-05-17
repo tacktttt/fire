@@ -25,4 +25,16 @@ export class Plan {
     const y = toBN(this.monthlyInterestRate)
     return Math.floor(x.div(y).toNumber())
   }
+
+  get numberOfMonthsToReachTheTargetAmount() {
+    const fvr = toBN(this.targetAmount).times(toBN(this.monthlyInterestRate))
+    const pmt = toBN(this.monthlyReserveFund)
+
+    const m = fvr.div(pmt).plus(1).toNumber()
+    const a = toBN(this.monthlyInterestRate).plus(1).toNumber()
+
+    const n = Math.log(m) / Math.log(a)
+
+    return n
+  }
 }
