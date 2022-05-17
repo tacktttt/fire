@@ -27,7 +27,8 @@ export class Plan {
   }
 
   get numberOfMonthsToReachTheTargetAmount() {
-    const fvr = toBN(this.targetAmount).times(toBN(this.monthlyInterestRate))
+    const remainingAmount = this.targetAmount - this.baseAmount
+    const fvr = toBN(remainingAmount).times(toBN(this.monthlyInterestRate))
     const pmt = toBN(this.monthlyReserveFund)
 
     const m = fvr.div(pmt).plus(1).toNumber()
