@@ -1,13 +1,13 @@
 import { Story, Meta } from '@storybook/react'
 
-import { Text, Props } from './index'
+import { Button, Props } from './index'
 
 export default {
-  title: 'atom/Text',
-  component: Text,
+  title: 'ui/Button',
+  component: Button,
 } as Meta
 
-const Template: Story<Props> = (args) => <Text {...args} />
+const Template: Story<Props> = (args) => <Button {...args} />
 
 export const Basic = Template.bind({})
 Basic.args = {
