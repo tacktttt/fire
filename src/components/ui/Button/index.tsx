@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Text } from '../Text'
 import { sm } from '../../../constants/spaces'
-import { PRIMARY, BACKGROUND, SHADOW } from '../../../constants/colors'
+import { PRIMARY, WHITE, GRAY } from '../../../constants/colors'
 
 export type Props = {
   value: string
@@ -15,7 +15,7 @@ export const Button: React.FC<Props> = ({
   disabled,
   onClick,
 }: Props) => {
-  const color = disabled ? SHADOW : PRIMARY
+  const color = disabled ? GRAY : PRIMARY
 
   return (
     <button
@@ -31,7 +31,7 @@ export const Button: React.FC<Props> = ({
       }}
       onClick={onClick}
     >
-      <Text value={value} color={BACKGROUND} />
+      <Text value={value} color={WHITE} />
     </button>
   )
 }
