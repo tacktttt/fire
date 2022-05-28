@@ -15,19 +15,21 @@ export const TextInput: React.FC<Props> = ({
   onChange,
 }: Props) => {
   return (
-    <input
-      value={value}
-      onChange={(value) => onChange(value.target.value)}
-      disabled
-      style={{
-        width: '100%',
-        backgroundColor: disabled ? GRAY : WHITE,
-        padding: sm,
-        borderRadius: sm,
-        borderStyle: 'solid',
-        borderWidth: '1px',
-        borderColor: GRAY,
-      }}
-    />
+    <div style={{ padding: sm }}>
+      <input
+        value={value}
+        onChange={(value) => onChange(value.target.value)}
+        disabled
+        style={{
+          width: '100%',
+          backgroundColor: disabled ? GRAY : WHITE,
+          padding: sm,
+          borderRadius: sm,
+          borderStyle: 'solid',
+          borderWidth: '1px',
+          borderColor: GRAY,
+        }}
+      />
+    </div>
   )
 }

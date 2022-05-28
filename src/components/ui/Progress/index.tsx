@@ -1,8 +1,6 @@
 import React from 'react'
 import { Progress as CProgress } from '@chakra-ui/react'
 
-import { PRIMARY } from '../../../constants/colors'
-
 export type Props = {
   value: number
 }
